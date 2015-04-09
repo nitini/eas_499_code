@@ -1,4 +1,4 @@
-net: "/home/nitini/eas_499/4_seaNet_train_test.prototxt"
+net: "/home/nitini/eas_499_code/network_architectures/4_seaNet_train_test.prototxt"
 test_iter: 64
 test_interval: 1000
 base_lr: 0.01

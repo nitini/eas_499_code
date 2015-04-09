@@ -12,7 +12,7 @@ layer {
         mean_file: "./train_all_48_mean.binaryproto"
     }
     data_param {
-        source: "/home/nitini/eas_499/cross_val_files/cv_training_lmdb"
+        source: "/home/nitini/data_files/cross_val_files/cv_training_lmdb"
         batch_size: 256
         backend: LMDB
     }
@@ -31,7 +31,7 @@ layer {
         mean_file: "./train_all_48_mean.binaryproto"
     }
     data_param {
-        source: "/home/nitini/eas_499/cross_val_files/cv_holdout_lmdb"
+        source: "/home/nitini/data_files/cross_val_files/cv_holdout_lmdb"
         batch_size: 256
         backend: LMDB
     }

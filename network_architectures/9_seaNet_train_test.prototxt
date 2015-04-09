@@ -166,7 +166,6 @@ layer {
     top: "conv3"
 }
 
-
 layer {
     name: "norm3"
     type: "LRN"
@@ -182,7 +181,7 @@ layer {
 layer {
     name: "pool1"
     type: "Pooling"
-    bottom: "conv3
+    bottom: "norm3"
     top: "pool1"
     pooling_param {
         pool: MAX
@@ -239,7 +238,7 @@ layer {
 layer {
     name: "pool2"
     type: "Pooling"
-    bottom: "conv4
+    bottom: "norm4"
     top: "pool2"
     pooling_param {
         pool: MAX

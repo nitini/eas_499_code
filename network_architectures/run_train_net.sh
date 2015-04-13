@@ -1,3 +1,5 @@
 #!/bin/sh
-
-/usr/local/caffe/bin/caffe.bin train --solver=./seaNet_solver_all.prototxt
+#$ -cwd
+#$ -j y
+#$ -m e -M nitini@wharton.upenn.edu
+caffe train --solver=/home/nitini/eas_499_code/network_architectures/seaNet_solver_all.prototxt

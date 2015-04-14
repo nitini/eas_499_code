@@ -1,8 +1,11 @@
+import matplotlib
+matplotlib.use('Agg')
 import caffe
 import lmdb
 import sys
 import time
 import csv
+import subprocess
 import numpy as np
 import os
 
@@ -35,9 +38,9 @@ def main():
     cursor = txn.cursor()
     count = 0
     for key, value in cursor:
-        print "Number of Images Processed: " + str(count)
         count += 1
-        print key
+        if count % 500 == 0:
+            print 'Number of Images Processed: ' + str(count)
         datum = caffe.proto.caffe_pb2.Datum()
         datum.ParseFromString(value)
         label = datum.label
@@ -51,6 +54,7 @@ def main():
         img_row.extend(probs)
         submission_writer.writerow(img_row)
     submission_file.close()
+   #subprocess.call('mv ' + file_name + ' ../../data_files/', shell=True)
 
 
 if __name__ == "__main__":

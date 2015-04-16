@@ -60,7 +60,7 @@ def prepare_data_for_lmdb_conversion(data):
 
 def create_lmdb(partitions):
     caffe_dir = '/usr/local/caffe/bin'
-    convert_imageset = caffe_dir + '/convert_imageset.bin'
+    convert_imageset = 'convert_imageset '
     for part in partitions:
         lmdb_dir = './cv_' + part + '_lmdb' 
         if os.path.isdir(lmdb_dir):

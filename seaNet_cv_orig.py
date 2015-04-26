@@ -13,10 +13,6 @@ def create_cv_partitions(fold_map, training_data_folder, k):
     for p in p_classes:
         p_dir = training_data_folder + '/' + p
         img_files = [p_dir + '/' + img for img in os.listdir(p_dir)]
-        for img in img_files:
-            if img.split('_')[-1] == '-45.jpg' or img.split('_')[-1] == '45.jpg':
-                resize_cmd = 'convert ' + img + '-resize 48x48\! ' + img
-                subprocess.call(resize_cmd, shell=True)
         random.shuffle(img_files)
         fold_assignments = list(chunks(img_files, k))
         for f_a, i in zip(fold_assignments, range(k)):

@@ -1,12 +1,12 @@
 net: "/home/nitini/eas_499_code/network_architectures/11_seaNet_train_test.prototxt"
 test_iter: 64
 test_interval: 1000
-base_lr: 0.01
+base_lr: 0.001
 lr_policy: "step"
 gamma: 0.1
-stepsize: 50000
+stepsize: 100000
 momentum: 0.9
 weight_decay: 0.0005
 display: 500
-max_iter: 22500
+max_iter: 50000
 solver_mode: GPU

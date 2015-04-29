@@ -354,6 +354,16 @@ layer {
 }
 
 layer {
+    name: "accuracy"
+    type: "Accuracy"
+    bottom: "ip3"
+    top: "accuracy"
+    include {
+        phase: TRAIN
+    }
+}
+
+layer {
     name: "loss"
     type: "SoftmaxWithLoss"
     bottom: "ip3"

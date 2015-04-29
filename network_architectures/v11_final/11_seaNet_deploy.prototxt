@@ -1,0 +1,319 @@
+name: "SeaNet"
+
+input: "data"
+input_dim: 64
+input_dim: 3
+input_dim: 48
+input_dim: 48
+
+layer {
+    name: "conv1"
+    type: "Convolution"
+    bottom: "data"
+    top: "conv1"
+    param {
+        lr_mult: 1
+    }
+    param {
+        lr_mult: 2
+    }
+    convolution_param {
+        num_output: 128
+        kernel_size: 3
+        stride: 2
+        weight_filler {
+            type: "xavier"
+        }
+        bias_filler {
+            type: "constant"
+        }
+    }
+}
+
+layer {
+    name: "reLU1"
+    type: "ReLU"
+    bottom: "conv1"
+    top: "conv1"
+}
+
+layer {
+    name: "norm1"
+    type: "LRN"
+    bottom: "conv1"
+    top: "norm1"
+    lrn_param {
+        local_size: 5
+        alpha: 0.0001
+        beta: 0.75
+    }
+}
+
+layer {
+    name: "conv2"
+    type: "Convolution"
+    bottom: "norm1"
+    top: "conv2"
+    param {
+        lr_mult: 1
+    }
+    param {
+        lr_mult: 2
+    }
+    convolution_param {
+        num_output: 128
+        kernel_size: 3
+        stride: 1
+        weight_filler {
+            type: "xavier"
+        }
+        bias_filler {
+            type: "constant"
+        }
+    }
+}
+
+layer {
+    name: "reLU2"
+    type: "ReLU"
+    bottom: "conv2"
+    top: "conv2"
+}
+
+layer {
+    name: "norm2"
+    type: "LRN"
+    bottom: "conv2"
+    top: "norm2"
+    lrn_param {
+        local_size: 5
+        alpha: 0.0001
+        beta: 0.75
+    }
+}
+
+
+layer {
+    name: "dropout1"
+    type: "Dropout"
+    bottom: "norm2"
+    top: "norm2"
+    dropout_param {
+        dropout_ratio: 0.5
+    }
+}
+
+
+layer {
+    name: "conv3"
+    type: "Convolution"
+    bottom: "norm2"
+    top: "conv3"
+    param {
+        lr_mult: 1
+    }
+    param {
+        lr_mult: 2
+    }
+    convolution_param {
+        num_output: 256
+        kernel_size: 2
+        stride: 2
+        weight_filler {
+            type: "xavier"
+        }
+        bias_filler {
+            type: "constant"
+        }
+    }
+}
+
+layer {
+    name: "reLU3"
+    type: "ReLU"
+    bottom: "conv3"
+    top: "conv3"
+}
+
+layer {
+    name: "norm3"
+    type: "LRN"
+    bottom: "conv3"
+    top: "norm3"
+    lrn_param {
+        local_size: 5
+        alpha: 0.0001
+        beta: 0.75
+    }
+}
+
+layer {
+    name: "conv4"
+    type: "Convolution"
+    bottom: "norm3"
+    top: "conv4"
+    param {
+        lr_mult: 1
+    }
+    param {
+        lr_mult: 2
+    }
+    convolution_param {
+        num_output: 256
+        kernel_size: 2
+        stride: 1
+        weight_filler {
+            type: "xavier"
+        }
+        bias_filler {
+            type: "constant"
+        }
+    }
+}
+
+layer {
+    name: "pool1"
+    type: "Pooling"
+    bottom: "conv4"
+    top: "pool1"
+    pooling_param {
+        pool: MAX
+        kernel_size: 3
+        stride: 3
+    }
+}
+
+layer {
+    name: "norm4"
+    type: "LRN"
+    bottom: "pool1"
+    top: "norm4"
+    lrn_param {
+        local_size: 5
+        alpha: 0.0001
+        beta: 0.75
+    }
+}
+
+
+layer {
+    name: "dropout2"
+    type: "Dropout"
+    bottom: "norm4"
+    top: "norm4"
+    dropout_param {
+        dropout_ratio: 0.5
+    }
+}
+
+layer {
+    name: "ip1"
+    type: "InnerProduct"
+    bottom: "norm4"
+    top: "ip1"
+    param {
+        lr_mult: 1
+    }
+    param {
+        lr_mult: 2
+    }
+    inner_product_param {
+        num_output: 256
+        weight_filler {
+            type: "xavier"
+        }
+        bias_filler {
+            type: "constant"
+        }
+    }
+}
+
+layer {
+    name: "reLU4"
+    type: "ReLU"
+    bottom: "ip1"
+    top: "ip1"
+}
+
+layer {
+    name: "dropout3"
+    type: "Dropout"
+    bottom: "ip1"
+    top: "ip1"
+    dropout_param {
+        dropout_ratio: 0.5
+    }
+}
+
+layer {
+    name: "ip2"
+    type: "InnerProduct"
+    bottom: "ip1"
+    top: "ip2"
+    param {
+        lr_mult: 1
+    }
+    param {
+        lr_mult: 2
+    }
+    inner_product_param {
+        num_output: 256
+        weight_filler {
+            type: "xavier"
+            std: 0.01
+        }
+        bias_filler {
+            type: "constant"
+            value: 0
+        }
+    }
+}
+
+layer {
+    name: "reLU5"
+    type: "ReLU"
+    bottom: "ip2"
+    top: "ip2"
+}
+
+
+layer {
+    name: "dropout4"
+    type: "Dropout"
+    bottom: "ip2"
+    top: "ip2"
+    dropout_param {
+        dropout_ratio: 0.5
+    }
+}
+
+layer {
+    name: "ip3"
+    type: "InnerProduct"
+    bottom: "ip2"
+    top: "ip3"
+    param {
+        lr_mult: 1
+    }
+    param {
+        lr_mult: 2
+    }
+    inner_product_param {
+        num_output: 121
+        weight_filler {
+            type: "xavier"
+            std: 0.01
+        }
+        bias_filler {
+            type: "constant"
+            value: 0
+        }
+    }
+}
+
+layer {
+    name: "prob"
+    type: "Softmax"
+    bottom: "ip3"
+    top: "prob"
+}
